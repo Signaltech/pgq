@@ -233,11 +233,19 @@ type Subconsumer struct{
     // Working loop running in goroutine
     func (self *Subconsumer) Work() error {
         log.Printf("Subconsumer %s.%s started", self.consumerName, self.subconsumerName)
+        defer func() {
+            r := recover()
+            if r != nil {
+                log.Println("Continue working")
+                self.Work()
+            }
+        }()
+
         for {
             batch, err := self.nextBatch()
             if err != nil {
                 log.Println(err)
-                return err
+                panic(err)
             }
 
             if batch == nil {
@@ -253,15 +261,16 @@ type Subconsumer struct{
 
                 if err != nil {
                     log.Println(err)
-                    return err
+                    panic(err)
                 }
             }
 
             close_err := self.CloseBatch()
             if close_err != nil {
-                return close_err
+                log.Printf("Close batch error: %v", close_err)
+                panic(close_err)
             }
-            time.Sleep(self.sleepInterval)
+            //time.Sleep(self.sleepInterval)
         }
         return nil
     }
