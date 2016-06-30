@@ -234,9 +234,8 @@ type Subconsumer struct{
     func (self *Subconsumer) Work() error {
         log.Printf("Subconsumer %s.%s started", self.consumerName, self.subconsumerName)
         defer func() {
-            r := recover()
-            if r != nil {
-                log.Println("Continue working")
+            err := recover(); if err != nil {
+                log.Printf("Main loop error: %v. Continue working \n", err)
                 self.Work()
             }
         }()

@@ -4,7 +4,7 @@ Package for writing PGQ consumers in Golang.
 
 ## Installation
 
-    go get github.com/sasha-alias/pgq
+    go get github.com/Signaltech/pgq
 
 ## Description
 
@@ -29,7 +29,7 @@ Then create an instance of appropriate consumer and pass your function to it via
 package main
 
 import (
-    "github.com/sasha-alias/pgq"
+    "github.com/Signaltech/pgq"
     "log"
 )
 
@@ -54,7 +54,7 @@ func main() {
 package main
 
 import (
-    "github.com/sasha-alias/pgq"
+    "github.com/Signaltech/pgq"
     "log"
 )
 
