@@ -262,12 +262,12 @@ type Subconsumer struct{
                     log.Println(err)
                     panic(err)
                 }
-            }
 
-            close_err := self.CloseBatch()
-            if close_err != nil {
-                log.Printf("Close batch error: %v", close_err)
-                panic(close_err)
+                close_err := self.CloseBatch()
+                if close_err != nil {
+                    log.Printf("Close batch error: %v", close_err)
+                    panic(close_err)
+                }
             }
             //time.Sleep(self.sleepInterval)
         }
